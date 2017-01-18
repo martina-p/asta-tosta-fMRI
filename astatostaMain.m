@@ -51,7 +51,7 @@ conditions = {Practice, Ashuffled, Bshuffled, Cshuffled};
 nrRuns = length(conditions);
 
 % Instruction messages
-instr1 = 'Benvenuto! \n \n Premi INVIO per cominciare 3 turni di prova. \n FUNKY LINE';
+instr1 = 'Benvenuto! \n \n Premi INVIO per cominciare 3 turni di prova. \n FUNKY LINE \n EXTRA FUNKY LINE';
 message = {'Fine della prova. \n \n Premi INVIO per cominciare l''esperimento'
     'Pausa. \n \n Premi INVIO per continuare.'
     'Pausa. \n \n Premi INVIO per continuare.'
