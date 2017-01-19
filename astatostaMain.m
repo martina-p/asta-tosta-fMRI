@@ -1,5 +1,5 @@
-% Script to run "asta tosta" game
-% Martina Puppi & Nadage Bault, June 2016
+% Script to run "asta tosta" game adapted for fMRI
+% Martina Puppi & Nadege Bault, January 2017
 
 function atMain
 
@@ -34,9 +34,9 @@ grey = [150 150 150];
 
 % Bar coordinates
 width_coeff = 60;
-start_coord = 50;
-y_cood1 = 600;
-y_cood2 = 650;
+start_coord = 400;
+y_coord1 = 640;
+y_coord2 = 690;
 
 %Keyboard parameters
 enter=KbName('return'); % Enter
@@ -227,7 +227,7 @@ for j=1:nrRuns
         
         %% Show post-choice info screen
         disp_ticks;
-        DrawFormattedText(win, num2str(greenValueSubj), start_coord + greenValueSubj*width_coeff-10, y_cood2 + 50, green);
+        DrawFormattedText(win, num2str(greenValueSubj), start_coord + greenValueSubj*width_coeff-10, y_coord2 + 50, white);
         
         Screen('TextSize',win, 48);
         DrawFormattedText(win,condname{conditions{j}(i)},'center',200,white);
@@ -235,47 +235,50 @@ for j=1:nrRuns
         DrawFormattedText(win,condmsg{conditions{j}(i)},'center',900,white);
         if (conditions{j}(i) == 1) && (humanWin == 1) %BASE
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
+            Screen('TextSize',win, 48); %newline
             DrawFormattedText(win,'Hai vinto!','center',300,white);
-            Screen('FillRect', win, white, [start_coord y_cood1 start_coord+Sub_ch*width_coeff y_cood2]);
-            Screen('FillRect', win, green, [start_coord+Sub_ch*width_coeff y_cood1 start_coord+(greenValueSubj)*width_coeff y_cood2]);
+            Screen('TextSize',win, 22);
+            Screen('FillRect', win, white, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
+            Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]);
             disp_cursor(Sub_ch)
         elseif (conditions{j}(i) == 1) && (humanWin == 0) %BASE
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
             DrawFormattedText(win,'Hai perso!','center',300,white);
-            Screen('FillRect', win, red, [start_coord y_cood1 start_coord+greenValueSubj*width_coeff y_cood2]);
+            Screen('FillRect', win, white, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
             disp_cursor(Sub_ch)
         elseif (conditions{j}(i) == 2) && (humanWin == 1) %SECONDA PUNTATA
             DrawFormattedText(win,num2str(compChoice),1110,900,white);
             DrawFormattedText(win,'Hai vinto!','center',300,white);
-            Screen('FillRect', win, white, [start_coord y_cood1 start_coord+compChoice*width_coeff y_cood2]);
-            Screen('FillRect', win, blue, [start_coord+compChoice*width_coeff y_cood1 start_coord+Sub_ch*width_coeff y_cood2]);
-            Screen('FillRect', win, green, [start_coord+Sub_ch*width_coeff y_cood1 start_coord+greenValueSubj*width_coeff y_cood2]);
+            Screen('FillRect', win, white, [start_coord y_coord1 start_coord+compChoice*width_coeff y_coord2]);
+            Screen('FillRect', win, white, [start_coord+compChoice*width_coeff y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
+            Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
             disp_cursor(Sub_ch)
-            Screen('FillRect', win, grey, [start_coord+compChoice*width_coeff-7 y_cood1-10 start_coord+compChoice*width_coeff+7 y_cood2+10]);
+            Screen('FillRect', win, white, [start_coord+compChoice*width_coeff-7 y_coord1-10 start_coord+compChoice*width_coeff+7 y_coord2+10]);
+            Screen('FrameRect', win, black, [start_coord+compChoice*width_coeff-8 y_coord1-16 start_coord+compChoice*width_coeff+8 y_coord2+16]);
         elseif (conditions{j}(i) == 2 && humanWin == 0) %SECONDA PUNTATA
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
             DrawFormattedText(win,'Hai perso!','center',300,white); %add subjChoice
-            Screen('FillRect', win, red, [start_coord y_cood1 start_coord+greenValueSubj*width_coeff y_cood2]);
+            Screen('FillRect', win, white, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
             disp_cursor(Sub_ch)
         elseif (conditions{j}(i) == 3 && humanWin == 1) %PUNTATA VINCENTE
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
             DrawFormattedText(win,'Hai vinto!','center',300,white);
-            Screen('FillRect', win, white, [start_coord y_cood1 start_coord+Sub_ch*width_coeff y_cood2]);
-            Screen('FillRect', win, green, [start_coord+Sub_ch*width_coeff y_cood1 start_coord+(greenValueSubj)*width_coeff y_cood2]);
+            Screen('FillRect', win, white, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
+            Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]);
             disp_cursor(Sub_ch)
         elseif (conditions{j}(i) == 3 && humanWin == 0) %PUNTATA VINCENTE
             DrawFormattedText(win,num2str(compChoice),1110,900,white);
             DrawFormattedText(win,'Hai perso!','center',300,white);
             if greenValueSubj>compChoice
-                Screen('FillRect', win, red, [start_coord y_cood1 start_coord+Sub_ch*width_coeff y_cood2]);
-                Screen('FillRect', win, red, [start_coord+Sub_ch*width_coeff y_cood1 start_coord+compChoice*width_coeff y_cood2]);
-                Screen('FillRect', win, blue, [start_coord+compChoice*width_coeff y_cood1 start_coord+greenValueSubj*width_coeff y_cood2]);
+                Screen('FillRect', win, white, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
+                Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+compChoice*width_coeff y_coord2]);
+                Screen('FillRect', win, white, [start_coord+compChoice*width_coeff y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
                 disp_cursor(Sub_ch)
-                Screen('FillRect', win, grey, [start_coord+compChoice*width_coeff-7 y_cood1-10 start_coord+compChoice*width_coeff+7 y_cood2+10]);
+                Screen('FillRect', win, white, [start_coord+compChoice*width_coeff-7 y_coord1-10 start_coord+compChoice*width_coeff+7 y_coord2+10]);
             elseif greenValueSubj<=compChoice
-                Screen('FillRect', win, red, [start_coord y_cood1 start_coord+compChoice(end)*width_coeff y_cood2]);
+                Screen('FillRect', win, white, [start_coord y_coord1 start_coord+compChoice(end)*width_coeff y_coord2]);
                 disp_cursor(Sub_ch)
-                Screen('FillRect', win, grey, [start_coord+compChoice*width_coeff-7 y_cood1-10 start_coord+compChoice*width_coeff+7 y_cood2+10]);
+                Screen('FillRect', win, white, [start_coord+compChoice*width_coeff-7 y_coord1-10 start_coord+compChoice*width_coeff+7 y_coord2+10]);
             end
         end
         DrawFormattedText(win,'Premi INVIO per passare alla prossima asta','center',1000,white);
@@ -358,32 +361,32 @@ save(resultname, 'data', 'Events');
     end
 
     function disp_bars
-        Screen('FillRect', win, white, [start_coord y_cood1 start_coord+greenValueSubj*width_coeff y_cood2]);
+        Screen('FillRect', win, white, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
     end
 
     function disp_ticks
         for rr = 1:greenValueSubj
-            Screen('DrawLine', win, white, start_coord + rr*width_coeff, y_cood2, start_coord + rr*width_coeff,  y_cood2+20, 1); %tick marks
+            Screen('DrawLine', win, white, start_coord + rr*width_coeff, y_coord2, start_coord + rr*width_coeff,  y_coord2+20, 1); %tick marks
             if find(rr == survivingChoices)
                 Screen('TextStyle',win, 1);
-                DrawFormattedText(win, num2str(rr), start_coord + rr*width_coeff-10, y_cood2 + 50, white); %white numbers if selectable
+                DrawFormattedText(win, num2str(rr), start_coord + rr*width_coeff-10, y_coord2 + 50, white); %white numbers if selectable
             end
             Screen('TextStyle',win, 0);
         end
         
         %Gray out unbiddable values
         if max(row)>greenValueSubj
-            Screen('FillRect', win, grey, [start_coord+greenValueSubj*width_coeff y_cood2-5 start_coord+max(bigMatrix(i,:))*width_coeff y_cood2]); %bar
+            Screen('FillRect', win, white, [start_coord+greenValueSubj*width_coeff y_coord2-5 start_coord+max(bigMatrix(i,:))*width_coeff y_coord2]); %bar
             for rrr = find(row > greenValueSubj)
-                Screen('DrawLine', win, grey, start_coord + row(rrr)*width_coeff, y_cood2, start_coord + row(rrr)*width_coeff,  y_cood2+20, 1) %tick marks; %grey ticks
-                DrawFormattedText(win, num2str(row(rrr)), start_coord + row(rrr)*width_coeff-10, y_cood2 + 50, grey); %gnumbers
+                Screen('DrawLine', win, white, start_coord + row(rrr)*width_coeff, y_coord2, start_coord + row(rrr)*width_coeff,  y_coord2+20, 1) %tick marks; %grey ticks
+                DrawFormattedText(win, num2str(row(rrr)), start_coord + row(rrr)*width_coeff-10, y_coord2 + 50, white); %gnumbers
             end
         end
     end
 
     function disp_cursor(horiz_pos)
-        Screen('FillRect', win, white, [start_coord+horiz_pos*width_coeff-7 y_cood1-16 start_coord+horiz_pos*width_coeff+7 y_cood2+16]);
-        Screen('FrameRect', win, black, [start_coord+horiz_pos*width_coeff-8 y_cood1-16 start_coord+horiz_pos*width_coeff+8 y_cood2+16]);
+        Screen('FillRect', win, white, [start_coord+horiz_pos*width_coeff-7 y_coord1-16 start_coord+horiz_pos*width_coeff+7 y_coord2+16]);
+        Screen('FrameRect', win, black, [start_coord+horiz_pos*width_coeff-8 y_coord1-16 start_coord+horiz_pos*width_coeff+8 y_coord2+16]);
     end
     
     function disp_earning
