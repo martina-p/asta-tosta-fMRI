@@ -235,20 +235,24 @@ for j=1:nrRuns
         DrawFormattedText(win,condmsg{conditions{j}(i)},'center',900,white);
         if (conditions{j}(i) == 1) && (humanWin == 1) %BASE
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
-            Screen('TextSize',win, 48); %newline
-            DrawFormattedText(win,'Hai vinto!','center',300,white);
+            Screen('TextSize',win, 48);
+            DrawFormattedText(win,'Hai vinto!','center',450,white);
             Screen('TextSize',win, 22);
             Screen('FillRect', win, white, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
             Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]);
             disp_cursor(Sub_ch)
         elseif (conditions{j}(i) == 1) && (humanWin == 0) %BASE
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
-            DrawFormattedText(win,'Hai perso!','center',300,white);
+            Screen('TextSize',win, 48);
+            DrawFormattedText(win,'Hai perso!','center',450,white);
+            Screen('TextSize',win, 22);
             Screen('FillRect', win, white, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
             disp_cursor(Sub_ch)
         elseif (conditions{j}(i) == 2) && (humanWin == 1) %SECONDA PUNTATA
             DrawFormattedText(win,num2str(compChoice),1110,900,white);
-            DrawFormattedText(win,'Hai vinto!','center',300,white);
+            Screen('TextSize',win, 48);
+            DrawFormattedText(win,'Hai vinto!','center',450,white);
+            Screen('TextSize',win, 22);
             Screen('FillRect', win, white, [start_coord y_coord1 start_coord+compChoice*width_coeff y_coord2]);
             Screen('FillRect', win, white, [start_coord+compChoice*width_coeff y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
             Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
@@ -257,18 +261,24 @@ for j=1:nrRuns
             Screen('FrameRect', win, black, [start_coord+compChoice*width_coeff-8 y_coord1-16 start_coord+compChoice*width_coeff+8 y_coord2+16]);
         elseif (conditions{j}(i) == 2 && humanWin == 0) %SECONDA PUNTATA
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
-            DrawFormattedText(win,'Hai perso!','center',300,white); %add subjChoice
+            Screen('TextSize',win, 48);
+            DrawFormattedText(win,'Hai perso!','center',450,white); 
+            Screen('TextSize',win, 22);
             Screen('FillRect', win, white, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
             disp_cursor(Sub_ch)
         elseif (conditions{j}(i) == 3 && humanWin == 1) %PUNTATA VINCENTE
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
-            DrawFormattedText(win,'Hai vinto!','center',300,white);
+            Screen('TextSize',win, 48);
+            DrawFormattedText(win,'Hai vinto!','center',450,white);
+            Screen('TextSize',win, 22);
             Screen('FillRect', win, white, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
             Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]);
             disp_cursor(Sub_ch)
         elseif (conditions{j}(i) == 3 && humanWin == 0) %PUNTATA VINCENTE
             DrawFormattedText(win,num2str(compChoice),1110,900,white);
-            DrawFormattedText(win,'Hai perso!','center',300,white);
+            Screen('TextSize',win, 48);
+            DrawFormattedText(win,'Hai perso!','center',450,white);
+            Screen('TextSize',win, 22);
             if greenValueSubj>compChoice
                 Screen('FillRect', win, white, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
                 Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+compChoice*width_coeff y_coord2]);
