@@ -7,6 +7,9 @@ global taskTimeStamp
 
 %% Set things up
 Cfg = Config;
+tNoDecision = Cfg.tNoDecision; % feedback time
+tFeedback =Cfg.tFeedback; % feedback time
+tVal = Cfg.tVal;
 
 % Screenshots
 Screenshot=0;  %1 to take screenshots in each trial, 0 to not take any screenshot
@@ -168,24 +171,24 @@ for j=1:nrRuns
         
         time.start = GetSecs;
         Screen('Flip',win);
-        WaitSecs(1);
+        WaitSecs(tVal);
 
         if Screenshot==1
             imageArray = Screen('GetImage', win); % GetImage call. Alter the rect argument to change the location of the screen shot
-            imwrite(imageArray, ['Screenshots\Trial' num2str(trialnb) 'DispValues.jpg']) % imwrite is a Matlab function
+            imwrite(imageArray, ['Screenshots\Trial' num2str(trialnb) '_1DispValues.jpg']) % imwrite is a Matlab function
         end
         
         time.end = GetSecs;
-        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'DispBarNoCursor', time);
+        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'DispValues', time, tVal);
         
         disp_green_value;
         disp_bars;
         disp_ticks;
         time.start = GetSecs;
         Screen('Flip',win);
-        WaitSecs(2);
+        WaitSecs(tNoDecision);
         time.end = GetSecs;
-        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'Screen1', time);
+        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'DispBarNoCursor', time, tNoDecision);
         
         %% Cursor
         %random placement of cursor
@@ -201,12 +204,13 @@ for j=1:nrRuns
         Time_start = GetSecs;
         Screen('Flip',win);
         
+        time.end = GetSecs;
         if Screenshot==1
             imageArray = Screen('GetImage', win); % GetImage call. Alter the rect argument to change the location of the screen shot
-            imwrite(imageArray, ['Screenshots\Trial' num2str(trialnb) '_Screen2.jpg']) % imwrite is a Matlab function
+            imwrite(imageArray, ['Screenshots\Trial' num2str(trialnb) '_2DispBar.jpg']) % imwrite is a Matlab function
         end
         
-        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'Screen2', time);
+        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'DispBarCursor', time);
         
         %% Selection
         pos = find(survivingChoices==randomcursor);
@@ -220,20 +224,29 @@ for j=1:nrRuns
                     if pos > 1
                         pos = pos - 1;
                     end
-                    [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'MoveCursor', time);
+                    
+                    disp_green_value;
+                    disp_bars;
+                    disp_ticks;
+                    disp_cursor(survivingChoices(pos));
+                    time.start = GetSecs;
+                    Screen('Flip',win);
+                    time.end = GetSecs;
+                    [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'MoveCursorLeft', time);
+            
                 case 'RightArrow'
                     if pos < length(survivingChoices)
                         pos = pos + 1;
                     end
-                    [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'MoveCursor', time);
+                    disp_green_value;
+                    disp_bars;
+                    disp_ticks;
+                    disp_cursor(survivingChoices(pos));
+                    time.start = GetSecs;
+                    Screen('Flip',win);
+                    time.end = GetSecs;
+                    [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'MoveCursorRight', time);
             end
-            
-            disp_green_value;
-            disp_bars;
-            disp_ticks;
-            disp_cursor(survivingChoices(pos));
-            time.start = GetSecs;
-            Screen('Flip',win);    
         end
         
         Time_end = GetSecs;
@@ -250,8 +263,11 @@ for j=1:nrRuns
             
         if Screenshot==1
             imageArray = Screen('GetImage', win); % GetImage call. Alter the rect argument to change the location of the screen shot
-            imwrite(imageArray, ['Screenshots\Trial' num2str(trialnb) '_Screen3.jpg']) % imwrite is a Matlab function
+            imwrite(imageArray, ['Screenshots\Trial' num2str(trialnb) '_3DispChoiceSelect.jpg']) % imwrite is a Matlab function
         end
+        
+        time.end = GetSecs;
+        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'DispChoiceSelect', time, Jittime);
         
         imp{j}(i) = survivingChoices(pos); %subject choice
         Sub_ch = survivingChoices(pos);
@@ -340,13 +356,14 @@ for j=1:nrRuns
         
         if Screenshot==1
             imageArray = Screen('GetImage', win); % GetImage call. Alter the rect argument to change the location of the screen shot
-            imwrite(imageArray, ['Screenshots\Trial' num2str(trialnb) '_Screen4.jpg']) % imwrite is a Matlab function
+            imwrite(imageArray, ['Screenshots\Trial' num2str(trialnb) '_Feedback.jpg']) % imwrite is a Matlab function
         end
         
-        WaitSecs(3);
+        
+        WaitSecs(tFeedback);
         
         time.end = GetSecs;
-        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'Feedback', time);
+        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'Feedback', time, tFeedback);
         
         s_value(trialnb,1) = greenValueSubj;
         s_fulloptions{trialnb} = row;
@@ -361,7 +378,7 @@ for j=1:nrRuns
         Screen('Flip',win);
         WaitSecs(Jittime);
         time.end = GetSecs;
-        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'FixCross', time);
+        [Events, nbevents] = LogEvents(Events, nbevents,  'Picture', 'FixCross', time, Jittime);
         
     end
     

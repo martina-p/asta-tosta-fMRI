@@ -54,8 +54,9 @@ Cfg.Fix_max = 4;
 
 % behavior
 Cfg.tFixation=1.5; %time of cross on screen
-Cfg.tVal=1; %parameter that we now have only in cfPost because being the response in cfTest self paced, we do not need it anymore
-Cfg.tNoDecision=1.0; % feedback time
+Cfg.tVal = 1.0000; %parameter that we now have only in cfPost because being the response in cfTest self paced, we do not need it anymore
+Cfg.tNoDecision = 2.0000; % feedback time
+Cfg.tFeedback = 3.0000; % feedback time
 
 %% keyboard parameters
 KbName('UnifyKeyNames'); % Use same key codes across operating systems for better portability
