@@ -36,6 +36,9 @@ red = [255 0 0]; %#ok<NASGU>
 green = [0 255 0];
 blue = [0 0 255]; %#ok<NASGU>
 grey = [150 150 150];
+purple = [153 0 56];
+yellow = [255 215 0];
+lightgrey = [211 211 211];
 
 objectSize = 50;
 stroke = 10;
