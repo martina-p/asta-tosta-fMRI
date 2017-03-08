@@ -32,13 +32,11 @@ Screen('Preference', 'VBLTimestampingMode', 3); %Add this to avoid timestamping 
 % Color definition
 white = [255 255 255];
 black = [0 0 0];
-red = [255 0 0]; %#ok<NASGU>
 green = [0 255 0];
-blue = [0 0 255]; %#ok<NASGU>
 grey = [150 150 150];
 purple = [153 0 56];
 yellow = [255 215 0];
-lightgrey = [211 211 211];
+lightgrey = [128 128 128];
 
 objectSize = 50;
 stroke = 10;
@@ -295,63 +293,99 @@ for j=1:nrRuns
         DrawFormattedText(win,condname{conditions{j}(i)},'center',200,white);
         Screen('TextSize',win, 22);
         DrawFormattedText(win,condmsg{conditions{j}(i)},'center',900,white);
-        if (conditions{j}(i) == 1) && (humanWin == 1) %BASE
+        if (conditions{j}(i) == 1) && (humanWin == 1) %BASE win
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
             Screen('TextSize',win, 48);
             DrawFormattedText(win,'Hai vinto!','center',450,white);
             Screen('TextSize',win, 22);
             Screen('FillRect', win, white, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
-            Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]);
+                if mod(iSubject,2) == 0
+                    Screen('FillRect', win, yellow, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]);
+                else
+                    Screen('FillRect', win, purple, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]);
+                end
             disp_cursor_select(Sub_ch)
-        elseif (conditions{j}(i) == 1) && (humanWin == 0) %BASE
+        elseif (conditions{j}(i) == 1) && (humanWin == 0) %BASE loss
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
             Screen('TextSize',win, 48);
             DrawFormattedText(win,'Hai perso!','center',450,white);
             Screen('TextSize',win, 22);
-            Screen('FillRect', win, white, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
+                if mod(iSubject,2) == 0
+                    Screen('FillRect', win, purple, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
+                else
+                    Screen('FillRect', win, lightgrey, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
+                end
             disp_cursor_select(Sub_ch)
-        elseif (conditions{j}(i) == 2) && (humanWin == 1) %SECONDA PUNTATA
+        elseif (conditions{j}(i) == 2) && (humanWin == 1) %SECONDA PUNTATA win
             DrawFormattedText(win,num2str(compChoice),1110,900,white);
             Screen('TextSize',win, 48);
             DrawFormattedText(win,'Hai vinto!','center',450,white);
             Screen('TextSize',win, 22);
             Screen('FillRect', win, white, [start_coord y_coord1 start_coord+compChoice*width_coeff y_coord2]);
-            Screen('FillRect', win, white, [start_coord+compChoice*width_coeff y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
-            Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
+                 if mod(iSubject,2) == 0
+                    Screen('FillRect', win, yellow, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]); %payoff
+                    Screen('FillRect', win, lightgrey, [start_coord+compChoice*width_coeff y_coord1 start_coord+Sub_ch*width_coeff y_coord2]) %regret
+                 else
+                     Screen('FillRect', win, purple, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]); %payoff
+                     Screen('FillRect', win, yellow, [start_coord+compChoice*width_coeff y_coord1 start_coord+Sub_ch*width_coeff y_coord2]); %regret         
+                 end           
             disp_cursor_select(Sub_ch)
             Screen('FillRect', win, grey, [start_coord+compChoice*width_coeff-7 y_coord1-10 start_coord+compChoice*width_coeff+7 y_coord2+10]);
             Screen('FrameRect', win, black, [start_coord+compChoice*width_coeff-8 y_coord1-16 start_coord+compChoice*width_coeff+8 y_coord2+16]);
-        elseif (conditions{j}(i) == 2 && humanWin == 0) %SECONDA PUNTATA
+        elseif (conditions{j}(i) == 2 && humanWin == 0) %SECONDA PUNTATA loss
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
             Screen('TextSize',win, 48);
             DrawFormattedText(win,'Hai perso!','center',450,white); 
             Screen('TextSize',win, 22);
-            Screen('FillRect', win, white, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
+                if mod(iSubject,2) == 0
+                    Screen('FillRect', win, purple, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
+                else
+                    Screen('FillRect', win, lightgrey, [start_coord y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
+                end
             disp_cursor_select(Sub_ch)
-        elseif (conditions{j}(i) == 3 && humanWin == 1) %PUNTATA VINCENTE
+        elseif (conditions{j}(i) == 3 && humanWin == 1) %PUNTATA VINCENTE win
             DrawFormattedText(win,num2str(Sub_ch),1110,900,white);
             Screen('TextSize',win, 48);
             DrawFormattedText(win,'Hai vinto!','center',450,white);
             Screen('TextSize',win, 22);
             Screen('FillRect', win, white, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
-            Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]);
+                 if mod(iSubject,2) == 0
+                    Screen('FillRect', win, yellow, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]);
+                else
+                    Screen('FillRect', win, purple, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+(greenValueSubj)*width_coeff y_coord2]);
+                end
             disp_cursor_select(Sub_ch)
-        elseif (conditions{j}(i) == 3 && humanWin == 0) %PUNTATA VINCENTE
+        elseif (conditions{j}(i) == 3 && humanWin == 0) %PUNTATA VINCENTE loss
             DrawFormattedText(win,num2str(compChoice),1110,900,white);
             Screen('TextSize',win, 48);
             DrawFormattedText(win,'Hai perso!','center',450,white);
             Screen('TextSize',win, 22);
-            if greenValueSubj>compChoice
-                Screen('FillRect', win, white, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]);
-                Screen('FillRect', win, white, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+compChoice*width_coeff y_coord2]);
-                Screen('FillRect', win, white, [start_coord+compChoice*width_coeff y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);
-                disp_cursor_select(Sub_ch)
-                Screen('FillRect', win, grey, [start_coord+compChoice*width_coeff-7 y_coord1-10 start_coord+compChoice*width_coeff+7 y_coord2+10]);
-            elseif greenValueSubj<=compChoice
-                Screen('FillRect', win, white, [start_coord y_coord1 start_coord+compChoice(end)*width_coeff y_coord2]);
-                disp_cursor(Sub_ch)
-                Screen('FillRect', win, grey, [start_coord+compChoice*width_coeff-7 y_coord1-10 start_coord+compChoice*width_coeff+7 y_coord2+10]);
-                Screen('FrameRect', win, black, [start_coord+compChoice*width_coeff-8 y_coord1-16 start_coord+compChoice*width_coeff+8 y_coord2+16]);
+            if mod(iSubject,2) == 0
+                if greenValueSubj>compChoice
+                    Screen('FillRect', win, purple, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]); %loss
+                    Screen('FillRect', win, purple, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+compChoice*width_coeff y_coord2]); %loss
+                    Screen('FillRect', win, lightgrey, [start_coord+compChoice*width_coeff y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);%regret 
+                    disp_cursor_select(Sub_ch)
+                    Screen('FillRect', win, grey, [start_coord+compChoice*width_coeff-7 y_coord1-10 start_coord+compChoice*width_coeff+7 y_coord2+10]);
+                elseif greenValueSubj<=compChoice
+                    Screen('FillRect', win, purple, [start_coord y_coord1 start_coord+compChoice(end)*width_coeff y_coord2]);
+                    disp_cursor(Sub_ch)
+                    Screen('FillRect', win, grey, [start_coord+compChoice*width_coeff-7 y_coord1-10 start_coord+compChoice*width_coeff+7 y_coord2+10]);
+                    Screen('FrameRect', win, black, [start_coord+compChoice*width_coeff-8 y_coord1-16 start_coord+compChoice*width_coeff+8 y_coord2+16]);
+                end
+            else
+                 if greenValueSubj>compChoice
+                    Screen('FillRect', win, lightgrey, [start_coord y_coord1 start_coord+Sub_ch*width_coeff y_coord2]); %loss
+                    Screen('FillRect', win, lightgrey, [start_coord+Sub_ch*width_coeff y_coord1 start_coord+compChoice*width_coeff y_coord2]); loss
+                    Screen('FillRect', win, yellow, [start_coord+compChoice*width_coeff y_coord1 start_coord+greenValueSubj*width_coeff y_coord2]);%regret
+                    disp_cursor_select(Sub_ch)
+                    Screen('FillRect', win, grey, [start_coord+compChoice*width_coeff-7 y_coord1-10 start_coord+compChoice*width_coeff+7 y_coord2+10]);%cursor
+                elseif greenValueSubj<=compChoice
+                    Screen('FillRect', win, lightgrey, [start_coord y_coord1 start_coord+compChoice(end)*width_coeff y_coord2]);%losss
+                    disp_cursor(Sub_ch)
+                    Screen('FillRect', win, grey, [start_coord+compChoice*width_coeff-7 y_coord1-10 start_coord+compChoice*width_coeff+7 y_coord2+10]);
+                    Screen('FrameRect', win, black, [start_coord+compChoice*width_coeff-8 y_coord1-16 start_coord+compChoice*width_coeff+8 y_coord2+16]);
+                 end
             end
         end
         time.start = GetSecs;
